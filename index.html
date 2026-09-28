@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+      body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+      #reader { width: 300px; margin: 0 auto; }
+      #result { margin-top: 20px; font-weight: bold; font-size: 1.1em; }
+    </style>
+  </head>
+  <body>
+    <h2>Escáner de Asistencia QR</h2>
+    <div id="reader"></div>
+    <div id="result">Esperando escaneo...</div>
+
+    <script>
+      function onScanSuccess(decodedText, decodedResult) {
+        document.getElementById('result').innerText = "Procesando: " + decodedText;
+        google.script.run
+          .withSuccessHandler(function(response) {
+            document.getElementById('result').innerText = response;
+          })
+          .processQRCode(decodedText);
+      }
+
+      let html5QrcodeScanner = new html5QrcodeScanner(
+        "reader", { fps: 10, qrbox: 250 }
+      );
+      html5QrcodeScanner.render(onScanSuccess);
+    </script>
+  </body>
+</html>
