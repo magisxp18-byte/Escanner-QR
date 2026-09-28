@@ -16,7 +16,7 @@
 
     <script>
       function onScanSuccess(decodedText, decodedResult) {
-        document.getElementById('result').innerText = "Procesando: " + decodedText;
+        document.getElementById('result').innerText = "Processing: " + decodedText;
         google.script.run
           .withSuccessHandler(function(response) {
             document.getElementById('result').innerText = response;
